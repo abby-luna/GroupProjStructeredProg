@@ -12,8 +12,9 @@ using namespace std;
 
 // one global varible isnt too bad practice,,, 
 //however this would be nicer to implement with OOP
-// but oop is unfornatly not the aim of this class ;p
+// but OOP is unfornatly not the aim of this module ;p 
 int ARRAY_LENGTH = 12;
+const int MAX_ARRAY_LENGHT = 50;
 
 void displayInstructions();
 void input(int arr[], bool cmdInput);
@@ -27,6 +28,7 @@ void scale(int input[], double scaleFactor);
 void reverse(int input[]);
 void zeroBase(int input[]);
 void removeNumber(int input[], int index);
+void outfile(int input[]);
 
 
 int main()
@@ -102,10 +104,12 @@ int main()
 
             removeNumber(arr, index-1);
             display(arr);
+            break;
 
 
 
         case 11:
+            outfile(arr);
             break;
 
         default:
@@ -119,14 +123,6 @@ int main()
     return 0;
 }
 
-int countLine(ifstream& file)
-{
-    int ret = 0;
-    string l;
-    while (getline(file, l))
-        ret++;
-    return ret;
-}
 
 void input(int arr[], bool cmdInput)
 {
@@ -150,18 +146,25 @@ void input(int arr[], bool cmdInput)
         return;
     }
 
-    ARRAY_LENGTH = countLine(file);
-
-    file.clear();
-    file.seekg(0, file.beg);
-
-    for (int i = 0; i < ARRAY_LENGTH; i++)
+    ARRAY_LENGTH = 0;
+    for (int i = 0; i < MAX_ARRAY_LENGHT; i++)
     {
-        file >> arr[i];
+        if (file >> arr[i])
+            ARRAY_LENGTH++;
     }
 
     file.close();
 
+
+}
+
+void outfile(int input[])
+{
+    ofstream file("Numbers.dat");
+
+    for (int i = 0; i < ARRAY_LENGTH; i++)
+        file << i << "\n";
+    file.close();
 
 }
 
