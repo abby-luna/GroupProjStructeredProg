@@ -34,7 +34,7 @@ void outfile(int input[]);
 int main()
 {
     int option;
-    int arr[50] = {INT_MAX};
+    int arr[50] = {0};
     input(arr, false);
 
     cout << "\nNow please select one of the following operations:\n";
@@ -84,16 +84,22 @@ int main()
 
             scale(arr, toCheck);
             display(arr);
+            outfile(arr);
+
             break;
 
         case 8:
             reverse(arr);
             display(arr);
+            outfile(arr);
+
             break;
 
         case 9:
             zeroBase(arr);
             display(arr);
+            outfile(arr);
+
             break;
 
         case 10:
@@ -104,6 +110,7 @@ int main()
 
             removeNumber(arr, index-1);
             display(arr);
+            outfile(arr);
             break;
 
 
@@ -163,7 +170,7 @@ void outfile(int input[])
     ofstream file("Numbers.dat");
 
     for (int i = 0; i < ARRAY_LENGTH; i++)
-        file << i << "\n";
+        file << input[i] << "\n";
     file.close();
 
 }
@@ -312,7 +319,7 @@ void removeNumber(int input[], int index)
         }
     }
 
-    input[updatedIndex+1] = INT_MAX;
+    input[updatedIndex+1] = 0;
     ARRAY_LENGTH -= 1;
 
 
